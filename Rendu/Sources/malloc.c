@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:16:09 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 17:40:40 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/17 15:49:56 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,81 +20,107 @@ unsigned int	rounded_allocation(unsigned int size_allocation)
 	unsigned int	rounded_allocation;
 	
 	rounded_allocation = 32;
+	
 	size_allocation += sizeof(struct s_chunk);
+	
 	while (rounded_allocation < size_allocation)
 		rounded_allocation *= 2;
 
 	return (rounded_allocation);
 }
 
-void	*mmap_region(size_t size)
+size_t			adjust_allocation(int type)
+{
+	static size_t	align[2] = {2, 2};
+	size_t			size;
+
+	size = REGION_SIZE(type) * align[type];
+	
+	align[type] = align[type] << 1;
+	
+	return (size);
+}
+
+void			*mmap_region(void **threshold, int type)
 {
 	static void 	*region_next = NULL;
 	void			*region_address;
-	
+	size_t			size;
+
+	size = adjust_allocation(type);
+
 	region_address = mmap(region_next, size, PROT_READ | PROT_WRITE,
 					   	  MAP_ANON | MAP_PRIVATE, -1, 0);
 
 	if (region_address != MAP_FAILED)
+	{
 		region_next = region_address + size;
+		*(threshold) += size;
+	}
 	
 	return (region_address);
 }
 
-t_chunk	*find_chunk(t_chunk *start, size_t size, int type)
+t_chunk				*find_chunk(t_chunk **start, size_t size, int type)
 {
-	static t_chunk	*threshold = NULL;
-	t_chunk			*tmp;
+	static void	*threshold[2] = {NULL, NULL};
+	t_chunk		*last;
+	t_chunk		*tmp;
 	
-	tmp = start;
-	
-	if (!threshold)
-		threshold = start + REGION_SIZE(type);
-
-	while(tmp->next)
-		tmp = tmp->next;
-		
-	if ((unsigned int)(tmp + size) > (unsigned int)threshold)
-	{
-		if ((tmp->next = mmap_region(REGION_SIZE(type))) == MAP_FAILED)
+	if (!*(start))
+		if ((*(start) = mmap_region(&threshold[type], type)) == MAP_FAILED)
 			return (NULL);
-		threshold = threshold + REGION_SIZE(type);
-		tmp = tmp->next;
-	}
 
-	return (tmp);
+	tmp = *(start);
+	
+	while (tmp)
+		if (IS_FREE(tmp->chunk_size) && tmp->chunk_size == size)
+			return (tmp);
+		else
+		{
+			last = tmp;
+			tmp = tmp->next;
+		}
+	
+	if (((void*)last + size) >= threshold[type])
+	{
+		if ((last->next = mmap_region(&threshold[type], type)) == MAP_FAILED)
+			return (NULL);
+		else
+			return (last->next);
+	}
+	
+	last->next = (t_chunk*)((void*)last + size);
+	
+	return (last->next);
 }
 
-void	*test_malloc(size_t size, int type)
+void	*test_malloc(t_chunk **region_heap, size_t size, int type)
 {
-	static t_chunk	*tiny_heap = NULL;
-	static t_chunk	*small_heap = NULL;
 	t_chunk			*last_chunk;
-	
-	if (type == TINY && !tiny_heap)
-		if ((tiny_heap = mmap_region(REGION_SIZE(type))) == MAP_FAILED)
-			return (NULL);
-	if (type == SMALL && !small_heap)
-		if ((small_heap = mmap_region(REGION_SIZE(type))) == MAP_FAILED)
-			return (NULL);
-	if (type == SMALL && !(last_chunk = find_chunk(small_heap, size, type)))
-		return (NULL);
-	if (type == TINY && !(last_chunk = find_chunk(tiny_heap, size, type)))
+	size_t 			chunk_size;
+
+	chunk_size = rounded_allocation(size);
+	if (!(last_chunk = find_chunk(region_heap, chunk_size, type)))
 		return (NULL);
 	else
 	{
 		last_chunk->alloc_size = size;
-		last_chunk->chunk_size = rounded_allocation(size);
-		last_chunk->next = (void *)last_chunk + last_chunk->chunk_size;
+		last_chunk->chunk_size = chunk_size + 1;
 	}
 	
-	return (last_chunk + sizeof(struct s_chunk));
+	return ((void*)last_chunk + sizeof(struct s_chunk));
 }
 
 void	*ft_malloc(size_t size)
 {
-	if (TINY_SIZE(size) || SMALL_SIZE(size))
-		return test_malloc(size, TINY);
+	static t_chunk	*tiny_heap = NULL;
+	static t_chunk	*small_heap = NULL;
+	
+	if (TINY_SIZE(size))
+		return test_malloc(&tiny_heap, size, TINY);
+	if (SMALL_SIZE(size))
+		return test_malloc(&small_heap, size, SMALL);
 	// if (MALLOC_LARGE(size))
 	// 	return large_malloc(size);
 		

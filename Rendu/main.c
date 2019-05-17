@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:26 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 17:46:15 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/17 14:43:02 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,22 +21,20 @@ void	*ft_malloc(size_t size);
 
 int main()
 {
-	int a = 0;
-	char *str = (char *)ft_malloc(1);
-	
-	printf("adresse = %p\nint = %d\n", str, (int)str);
+	char *end;
+	char *start;
+	char *prev;
 
-	str = (char *)ft_malloc(993);
-	
-	printf("adresse = %p\nint = %d\n", str, (int)str);
-	
-	str = (char *)ft_malloc(127000);
-	
-	printf("adresse = %p\nint = %d\n", str, (int)str);
-	
-	str = (char *)ft_malloc(1);
-	
-	
-	
+	start = (char *)ft_malloc(12);
+	prev = start;
+	while (1)
+	{
+		end = (char *)ft_malloc(12);
+
+		printf("DIFF\t%llu\n", (uint64_t)end - (uint64_t)prev);
+		printf("TOTAL\t%llu\n", (uint64_t)end - (uint64_t)start);
+		
+		prev = end;
+	}
 	return 0;
 }
