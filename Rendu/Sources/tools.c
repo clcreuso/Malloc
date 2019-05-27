@@ -16,38 +16,33 @@
 int			region_type(size_t size)
 {
 	if (size >= TINY_BYTE_MIN && size <= TINY_BYTE_MAX)
-		return TINY;
+		return (TINY);
 	if (size >= SMALL_BYTE_MIN && size <= SMALL_BYTE_MAX)
-		return SMALL;
+		return (SMALL);
 	if (size >= LARGE_BYTE_MIN)
-		return LARGE;
-		
-	return 0;
+		return (LARGE);
+	return (0);
 }
 
 int			region_size(size_t size, int type)
 {
 	if (type == TINY)
-		return TINY_MMAP_SIZE;
+		return (TINY_MMAP_SIZE);
 	if (type == SMALL)
-		return SMALL_MMAP_SIZE;
+		return (SMALL_MMAP_SIZE);
 	if (type == LARGE)
 		return (size);
-		
-	return 0;
+	return (0);
 }
 
 size_t		round_size(size_t size)
 {
 	size_t	result;
-	
+
 	result = 32;
-
 	size += sizeof(struct s_chunk);
-
 	while (result < size)
-			result *= 2;
-
+		result *= 2;
 	return (result);
 }
 
@@ -57,15 +52,12 @@ void		*mmap_page(size_t size)
 	void		*result;
 
 	if (!(size))
-		return region_next;
-
-	result = mmap(0, size, PROT_READ | PROT_WRITE, 
-						   MAP_ANON | MAP_PRIVATE, -1, 0);
-									 
+		return (region_next);
+	result = mmap(0, size, PROT_READ | PROT_WRITE,
+							MAP_ANON | MAP_PRIVATE, -1, 0);
 	if (result != MAP_FAILED)
 		region_next = result + size;
 	else
-		return NULL;
-	
-	return result;
+		return (NULL);
+	return (result);
 }

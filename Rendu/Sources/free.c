@@ -11,7 +11,6 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/free.h"
 #include "../Includes/malloc.h"
 
 void	free_region(t_region *region)
@@ -26,7 +25,7 @@ void	free_region(t_region *region)
 	}
 }
 
-void	free_metadata()
+void	free_metadata(void)
 {
 	t_region *region;
 	t_region *tmp;
@@ -54,19 +53,16 @@ void	ft_free(void *ptr)
 {
 	t_region	*region;
 	t_chunk		*chunk;
-	
+
 	if (!(ptr))
 		return ;
-
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
 	region = (t_region *)chunk->region;
-		
 	if (!(IS_FREE(chunk->size)))
 	{
 		chunk->size -= 1;
 		region->used -= chunk->size;
 	}
-	
 	free_region(region);
 	free_metadata();
 }

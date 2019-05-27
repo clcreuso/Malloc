@@ -24,7 +24,6 @@ void		*large_malloc(t_region *region, size_t size)
 	chunk = (t_chunk *)region->heap;
 	chunk->size = size + 1;
 	chunk->next = NULL;
-
 	return ((void*)chunk + sizeof(struct s_chunk));
 }
 
@@ -40,9 +39,9 @@ void		*smart_malloc(size_t size, int type)
 		if (!(region_ptr->type))
 		{
 			if (type == LARGE)
-				return large_malloc(region_ptr, size);
+				return (large_malloc(region_ptr, size));
 			if (!(init_chunks_region(region_ptr, size, type)))
-				return NULL;
+				return (NULL);
 		}
 		if ((chunk_ptr = find_free_chunk(region_ptr, size)))
 			if ((result = resize_chunk(chunk_ptr, size)))
@@ -51,8 +50,7 @@ void		*smart_malloc(size_t size, int type)
 				return (result + sizeof(struct s_chunk));
 			}
 	}
-
-	return NULL;
+	return (NULL);
 }
 
 void		*ft_malloc(size_t size)
@@ -61,17 +59,13 @@ void		*ft_malloc(size_t size)
 
 	size = round_size(size);
 	type = region_type(size);
-	
 	init_metadata_region();
-	
 	ft_print_region();
-	
 	if (type == TINY)
-		return smart_malloc(size, TINY);
+		return (smart_malloc(size, TINY));
 	if (type == SMALL)
-		return smart_malloc(size, SMALL);
+		return (smart_malloc(size, SMALL));
 	if (type == LARGE)
-		return smart_malloc(size, LARGE);
-	
-	return NULL;
+		return (smart_malloc(size, LARGE));
+	return (NULL);
 }

@@ -21,38 +21,36 @@ void		*init_chunks_region(t_region *region, size_t size, int type)
 
 	region->size = region_size(size, type);
 	if (!(region->heap = mmap_page(region->size)))
-		return NULL;
-	end_heap = mmap_page(ZERO);
+		return (NULL);
+	end_heap = mmap_page(0);
 	region->type = type;
 	chunk_ptr = (t_chunk *)region->heap;
 	chunk_size = (type == TINY) ? TINY_BYTE_MAX : SMALL_BYTE_MAX;
 	while ((void *)chunk_ptr + chunk_size < end_heap)
 	{
 		chunk_ptr->size = chunk_size;
-		chunk_ptr->next = (void *)chunk_ptr + chunk_size ;
+		chunk_ptr->next = (void *)chunk_ptr + chunk_size;
 		chunk_ptr = (t_chunk *)chunk_ptr->next;
 	}
 	chunk_ptr->size = chunk_size;
 	chunk_ptr->next = NULL;
-
 	return ((void *)region);
 }
 
 t_chunk		*find_free_chunk(t_region *region, size_t size)
 {
 	t_chunk		*chunk;
-	
+
 	chunk = (t_chunk *)region->heap;
 	while (chunk)
 	{
 		if (IS_FREE(chunk->size) && chunk->size >= size)
 		{
 			chunk->region = (void *)region;
-			return chunk;
+			return (chunk);
 		}
 		chunk = (t_chunk *)chunk->next;
 	}
-
 	return (NULL);
 }
 
@@ -71,6 +69,5 @@ void		*resize_chunk(t_chunk *chunk, size_t size)
 		ptr->next = tmp;
 	}
 	ptr->size += 1;
-
 	return (ptr);
 }

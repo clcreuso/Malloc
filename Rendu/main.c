@@ -11,20 +11,13 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/resource.h>
 #include "Includes/malloc.h"
 
-void	*ft_malloc(size_t size);
-
-int main()
+int		main(void)
 {
 	char *str;
-	
+
 	while (1)
 		str = (char*)ft_malloc(100000);
-
 	return (0);
 }

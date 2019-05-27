@@ -21,30 +21,27 @@ t_region	*find_metadata_region(t_region *region, int type)
 	while (ptr)
 	{
 		if (ptr->type == type && ptr->used != ptr->size)
-			return ptr;
+			return (ptr);
 		ptr = ptr->next;
 	}
-	
 	ptr = g_region;
-
 	while (ptr->next)
 	{
 		if (!(ptr->type))
-			return ptr;
+			return (ptr);
 		ptr = ptr->next;
 	}
-	
 	return (NULL);
 }
 
-t_region	*new_metadata_region()
+t_region	*new_metadata_region(void)
 {
 	t_region	*ptr;
 	t_region	*result;
 	void		*threshold;
 
 	ptr = (t_region *)mmap_page(REGION_MMAP_SIZE);
-	threshold = mmap_page(ZERO);
+	threshold = mmap_page(0);
 	result = ptr;
 	result->start = 1;
 	result->prev = NULL;
@@ -55,20 +52,18 @@ t_region	*new_metadata_region()
 		ptr->prev = (void *)ptr - sizeof(struct s_region);
 	}
 	ptr->next = NULL;
-	
 	return (result);
 }
 
 void		init_metadata_region(void)
 {
 	t_region	*region;
-	
+
 	if (!g_region)
 		g_region = new_metadata_region();
 	else
 	{
 		region = g_region;
-		
 		while (region->next)
 		{
 			if (!(region->type))

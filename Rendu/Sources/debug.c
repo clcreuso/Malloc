@@ -13,12 +13,13 @@
 
 #include "../Includes/malloc.h"
 
-void		ft_print_region()
+void		ft_print_region(void)
 {
 	t_region	*region_ptr;
 	t_chunk		*chunk_ptr;
-	int			reg = 0;
+	int			reg;
 
+	reg = 0;
 	region_ptr = g_region;
 	while (region_ptr)
 	{
