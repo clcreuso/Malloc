@@ -6,123 +6,72 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:16:09 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/17 15:49:56 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/27 16:51:38 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../Includes/malloc.h"
-#include <stdio.h>
-#include <sys/mman.h>
 
-unsigned int	rounded_allocation(unsigned int size_allocation)
+void		*large_malloc(t_region *region, size_t size)
 {
-	unsigned int	rounded_allocation;
-	
-	rounded_allocation = 32;
-	
-	size_allocation += sizeof(struct s_chunk);
-	
-	while (rounded_allocation < size_allocation)
-		rounded_allocation *= 2;
+	t_chunk	*chunk;
 
-	return (rounded_allocation);
+	region->type = LARGE;
+	region->used = size;
+	region->size = size;
+	region->heap = mmap_page(size);
+	chunk = (t_chunk *)region->heap;
+	chunk->size = size + 1;
+	chunk->next = NULL;
+
+	return ((void*)chunk + sizeof(struct s_chunk));
 }
 
-size_t			adjust_allocation(int type)
+void		*smart_malloc(size_t size, int type)
 {
-	static size_t	align[2] = {2, 2};
-	size_t			size;
+	t_region	*region_ptr;
+	t_chunk		*chunk_ptr;
+	void		*result;
 
-	size = REGION_SIZE(type) * align[type];
-	
-	align[type] = align[type] << 1;
-	
-	return (size);
-}
-
-void			*mmap_region(void **threshold, int type)
-{
-	static void 	*region_next = NULL;
-	void			*region_address;
-	size_t			size;
-
-	size = adjust_allocation(type);
-
-	region_address = mmap(region_next, size, PROT_READ | PROT_WRITE,
-					   	  MAP_ANON | MAP_PRIVATE, -1, 0);
-
-	if (region_address != MAP_FAILED)
+	region_ptr = NULL;
+	while ((region_ptr = find_metadata_region(region_ptr, type)))
 	{
-		region_next = region_address + size;
-		*(threshold) += size;
-	}
-	
-	return (region_address);
-}
-
-t_chunk				*find_chunk(t_chunk **start, size_t size, int type)
-{
-	static void	*threshold[2] = {NULL, NULL};
-	t_chunk		*last;
-	t_chunk		*tmp;
-	
-	if (!*(start))
-		if ((*(start) = mmap_region(&threshold[type], type)) == MAP_FAILED)
-			return (NULL);
-
-	tmp = *(start);
-	
-	while (tmp)
-		if (IS_FREE(tmp->chunk_size) && tmp->chunk_size == size)
-			return (tmp);
-		else
+		if (!(region_ptr->type))
 		{
-			last = tmp;
-			tmp = tmp->next;
+			if (type == LARGE)
+				return large_malloc(region_ptr, size);
+			if (!(init_chunks_region(region_ptr, size, type)))
+				return NULL;
 		}
-	
-	if (((void*)last + size) >= threshold[type])
-	{
-		if ((last->next = mmap_region(&threshold[type], type)) == MAP_FAILED)
-			return (NULL);
-		else
-			return (last->next);
+		if ((chunk_ptr = find_free_chunk(region_ptr, size)))
+			if ((result = resize_chunk(chunk_ptr, size)))
+			{
+				region_ptr->used += size;
+				return (result + sizeof(struct s_chunk));
+			}
 	}
-	
-	last->next = (t_chunk*)((void*)last + size);
-	
-	return (last->next);
+
+	return NULL;
 }
 
-void	*test_malloc(t_chunk **region_heap, size_t size, int type)
+void		*ft_malloc(size_t size)
 {
-	t_chunk			*last_chunk;
-	size_t 			chunk_size;
+	int		type;
 
-	chunk_size = rounded_allocation(size);
-	if (!(last_chunk = find_chunk(region_heap, chunk_size, type)))
-		return (NULL);
-	else
-	{
-		last_chunk->alloc_size = size;
-		last_chunk->chunk_size = chunk_size + 1;
-	}
+	size = round_size(size);
+	type = region_type(size);
 	
-	return ((void*)last_chunk + sizeof(struct s_chunk));
-}
-
-void	*ft_malloc(size_t size)
-{
-	static t_chunk	*tiny_heap = NULL;
-	static t_chunk	*small_heap = NULL;
+	init_metadata_region();
 	
-	if (TINY_SIZE(size))
-		return test_malloc(&tiny_heap, size, TINY);
-	if (SMALL_SIZE(size))
-		return test_malloc(&small_heap, size, SMALL);
-	// if (MALLOC_LARGE(size))
-	// 	return large_malloc(size);
-		
-	return (NULL);
+	ft_print_region();
+	
+	if (type == TINY)
+		return smart_malloc(size, TINY);
+	if (type == SMALL)
+		return smart_malloc(size, SMALL);
+	if (type == LARGE)
+		return smart_malloc(size, LARGE);
+	
+	return NULL;
 }
