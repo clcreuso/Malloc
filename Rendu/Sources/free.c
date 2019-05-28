@@ -49,7 +49,7 @@ void	free_metadata(void)
 	g_region = NULL;
 }
 
-void	ft_free(void *ptr)
+void	free(void *ptr)
 {
 	t_region	*region;
 	t_chunk		*chunk;

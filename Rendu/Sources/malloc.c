@@ -53,7 +53,7 @@ void		*smart_malloc(size_t size, int type)
 	return (NULL);
 }
 
-void		*ft_malloc(size_t size)
+void		*malloc(size_t size)
 {
 	int		type;
 

@@ -66,7 +66,7 @@ t_region		*g_region;
 
 void			*large_malloc(t_region *region, size_t size);
 void			*smart_malloc(size_t size, int type);
-void			*ft_malloc(size_t size);
+void			*malloc(size_t size);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -76,7 +76,7 @@ void			*ft_malloc(size_t size);
 
 void			free_region(t_region *region);
 void			free_metadata(void);
-void			ft_free(void *ptr);
+void			free(void *ptr);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -104,7 +104,7 @@ void			ft_putnbr(int n);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void			*ft_realloc(void *ptr, size_t size);
+void			*realloc(void *ptr, size_t size);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

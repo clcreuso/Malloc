@@ -13,7 +13,7 @@
 
 #include "../Includes/malloc.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*realloc(void *ptr, size_t size)
 {
 	t_region	*region;
 	t_chunk		*chunk;
