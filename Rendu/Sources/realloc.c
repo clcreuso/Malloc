@@ -23,8 +23,8 @@ void	*realloc(void *ptr, size_t size)
 	region = (t_region *)chunk->region;
 	if (chunk->size >= (size + sizeof(struct s_chunk)))
 		return (ptr);
-	if ((new_ptr = ft_malloc(size)))
+	if ((new_ptr = malloc(size)))
 		ft_strncpy(new_ptr, ptr, (chunk->size - sizeof(struct s_chunk)));
-	ft_free(ptr);
+	free(ptr);
 	return (new_ptr);
 }
