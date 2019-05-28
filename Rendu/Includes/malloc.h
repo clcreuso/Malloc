@@ -84,6 +84,7 @@ void			free(void *ptr);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+int				check_chunk_exist(void *ptr);
 void			*init_chunks_region(t_region *region, size_t size, int type);
 t_chunk			*find_free_chunk(t_region *region, size_t size);
 void			*resize_chunk(t_chunk *chunk, size_t size);

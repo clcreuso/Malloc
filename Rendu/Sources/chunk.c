@@ -13,6 +13,28 @@
 
 #include "../Includes/malloc.h"
 
+int			check_chunk_exist(void *ptr)
+{
+	t_region	*region;
+	t_chunk		*chunk;
+
+	region = g_region;
+	while (region)
+	{
+		chunk = region->heap;
+		while (chunk)
+		{
+			if (IS_FREE(chunk->size))
+				if (ptr == ((void*)chunk + sizeof(struct s_region)))
+					return (1);
+			chunk = chunk->next;
+		}
+		region = region->next;
+	}
+
+	return (0);
+}
+
 void		*init_chunks_region(t_region *region, size_t size, int type)
 {
 	t_chunk		*chunk_ptr;
