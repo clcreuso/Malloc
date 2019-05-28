@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:48 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 16:02:40 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 12:18:22 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <sys/mman.h>
 # include <sys/resource.h>
 
@@ -93,7 +94,9 @@ void			*resize_chunk(t_chunk *chunk, size_t size);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+int				ft_strlen(const char *s);
 char			*ft_strncpy(char *d, const char *s, size_t n);
+void			ft_putnbr(int n);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -124,8 +127,16 @@ int				region_size(size_t size, int type);
 size_t			round_size(size_t size);
 void			*mmap_page(size_t size);
 
-// OTHER
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                              show_alloc_mem.c                              ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
 
-void			ft_print_region(void);
+char 			*write_hexa_helper(char *dest, u_int64_t x);
+void			write_hexa(u_int64_t x);
+void			show_region_header(t_region *region);
+int				show_chunks(t_chunk *chunk);
+void			show_alloc_mem(void);
 
 #endif
