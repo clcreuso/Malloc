@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:26 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 17:58:23 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 12:16:51 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int		main(void)
 {
 	char *str;
 
-	while (1)
-		str = (char*)ft_malloc(100000);
+	str = (char*)ft_malloc(32);
+	show_alloc_mem();
 	return (0);
 }
