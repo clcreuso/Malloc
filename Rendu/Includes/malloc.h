@@ -133,7 +133,7 @@ void			*mmap_page(size_t size);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char 			*write_hexa_helper(char *dest, u_int64_t x);
+char			*write_hexa_helper(char *dest, u_int64_t x);
 void			write_hexa(u_int64_t x);
 void			show_region_header(t_region *region);
 int				show_chunks(t_chunk *chunk);

@@ -16,7 +16,7 @@
 char	*write_hexa_helper(char *dest, u_int64_t x)
 {
 	if (x >= 16)
-		dest = write_hexa_helper(dest, x/16);
+		dest = write_hexa_helper(dest, (x / 16));
 	*dest++ = "0123456789ABCDEF"[x & 15];
 	return (dest);
 }
@@ -24,7 +24,7 @@ char	*write_hexa_helper(char *dest, u_int64_t x)
 void	write_hexa(u_int64_t x)
 {
 	char dest[16];
-	
+
 	*write_hexa_helper(dest, x) = '\0';
 	write(0, "0x", 2);
 	write(0, dest, ft_strlen(dest));
