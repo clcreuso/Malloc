@@ -60,7 +60,6 @@ void		*ft_malloc(size_t size)
 	size = round_size(size);
 	type = region_type(size);
 	init_metadata_region();
-	ft_print_region();
 	if (type == TINY)
 		return (smart_malloc(size, TINY));
 	if (type == SMALL)
