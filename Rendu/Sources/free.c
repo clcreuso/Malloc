@@ -54,7 +54,7 @@ void	free(void *ptr)
 	t_region	*region;
 	t_chunk		*chunk;
 
-	if (!(ptr))
+	if (!(ptr) || !(check_chunk_exist(ptr)))
 		return ;
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
 	region = (t_region *)chunk->region;
