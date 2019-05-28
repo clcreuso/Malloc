@@ -6,7 +6,7 @@
 #    By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/05/25 17:12:33 by clcreuso     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/08 15:21:40 by clement     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/28 11:51:19 by clement     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -15,9 +15,7 @@
 
 GCC = gcc
 
-WAIT_FLAGS = -Wall -Wextra -Werror
-
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 SHARED_OBJECT = ./libft_malloc_$$HOSTTYPE.so
 
@@ -25,13 +23,14 @@ SYMBOLIC_LINK = ./libft_malloc.so
 
 INCLUDE_FOLDER = ./Includes/
 
-INCLUDE_FILES = malloc.h realloc.h free.h
+INCLUDE_FILES = malloc.h
 
 INCLUDE_PATHES = $(addprefix $(INCLUDE_FOLDER), $(INCLUDE_FILES))
 		
 SOURCE_FOLDER = ./Sources/
 
-SOURCE_FILES = malloc.c realloc.c free.c
+SOURCE_FILES = show_alloc_mem.c chunk.c free.c libft.c malloc.c realloc.c \
+			   region.c tools.c
 
 SOURCE_PATHES = $(addprefix $(SOURCE_FOLDER), $(SOURCE_FILES))
 
@@ -45,7 +44,6 @@ ifndef $$HOSTTYPE
 endif
 	@ar rcs $(SHARED_OBJECT) $(OBJ)
 	@ln -s $(SHARED_OBJECT) $(SYMBOLIC_LINK)
-	# gcc 
 	@printf "\r\033[0;32mmake $(SYMBOLIC_LINK)\033[0m\033[K\n"
 
 ./%.o: ./%.c $(INCLUDE_PATHES)
