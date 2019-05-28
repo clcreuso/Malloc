@@ -42,9 +42,8 @@ $(SYMBOLIC_LINK): $(OBJ)
 ifndef $$HOSTTYPE
 	@export HOSTTYPE=$(shell uname -m)_$(shell uname -s);
 endif
-	@ar rcs $(SHARED_OBJECT) $(OBJ)
+	@$(GCC) -shared -o $(SHARED_OBJECT) $(OBJ)
 	@ln -s $(SHARED_OBJECT) $(SYMBOLIC_LINK)
-	@printf "\r\033[0;32mmake $(SYMBOLIC_LINK)\033[0m\033[K\n"
 
 ./%.o: ./%.c $(INCLUDE_PATHES)
 	@$(GCC) $(FLAGS) -I $(INCLUDE_FOLDER) -o $@ -c $< 

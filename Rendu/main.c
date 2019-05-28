@@ -17,7 +17,12 @@ int		main(void)
 {
 	char *str;
 
-	str = (char*)ft_malloc(32);
+	str = (char*)malloc(1);
+	int a = -1;
+
+	while (a++ < 1)
+		str[a] = ('A' + (a % 26));
+	printf("%s\n", str);
 	show_alloc_mem();
 	return (0);
 }
