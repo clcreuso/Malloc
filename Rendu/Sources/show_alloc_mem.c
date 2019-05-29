@@ -83,6 +83,11 @@ void	show_alloc_mem(void)
 		}
 		region = region->next;
 	}
+	if (!(g_region))
+	{
+		write(1, "no memory allocation\n", 21);
+		return ;
+	}
 	write(1, "Total : ", 8);
 	ft_putnbr(total);
 	write(1, " octets\n", 8);
