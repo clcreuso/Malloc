@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   malloc.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:48 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 12:18:22 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 15:52:53 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,6 +98,7 @@ void			*resize_chunk(t_chunk *chunk, size_t size);
 int				ft_strlen(const char *s);
 char			*ft_strncpy(char *d, const char *s, size_t n);
 void			ft_putnbr(int n);
+void			*ft_memset(void *s, int c, size_t n);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -139,5 +140,13 @@ void			write_hexa(u_int64_t x);
 void			show_region_header(t_region *region);
 int				show_chunks(t_chunk *chunk);
 void			show_alloc_mem(void);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                  calloc.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void			*calloc(size_t count, size_t size);
 
 #endif

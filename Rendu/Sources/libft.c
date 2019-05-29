@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/27 15:52:57 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 11:42:38 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 14:46:12 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,17 @@ int		ft_strlen(const char *s)
 	while (*s++)
 		len++;
 	return (len);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	char *d;
+
+	d = (char*)s;
+	if (n)
+		while (n--)
+			*d++ = c;
+	return (s);
 }
 
 char	*ft_strncpy(char *d, const char *s, size_t n)
