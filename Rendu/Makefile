@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+      #
+#    By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/05/25 17:12:33 by clcreuso     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/28 11:51:19 by clement     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/29 14:42:20 by clcreuso    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,7 +30,7 @@ INCLUDE_PATHES = $(addprefix $(INCLUDE_FOLDER), $(INCLUDE_FILES))
 SOURCE_FOLDER = ./Sources/
 
 SOURCE_FILES = show_alloc_mem.c chunk.c free.c libft.c malloc.c realloc.c \
-			   region.c tools.c
+			   region.c tools.c calloc.c
 
 SOURCE_PATHES = $(addprefix $(SOURCE_FOLDER), $(SOURCE_FILES))
 
