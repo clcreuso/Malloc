@@ -39,7 +39,7 @@ size_t		round_size(size_t size)
 {
 	size_t	result;
 
-	result = 32;
+	result = 64;
 	size += sizeof(struct s_chunk);
 	while (result < size)
 		result *= 2;

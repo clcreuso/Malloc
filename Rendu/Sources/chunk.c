@@ -24,8 +24,8 @@ int			check_chunk_exist(void *ptr)
 		chunk = region->heap;
 		while (chunk)
 		{
-			if (IS_FREE(chunk->size))
-				if (ptr == ((void*)chunk + sizeof(struct s_region)))
+			if (!(IS_FREE(chunk->size)))
+				if (ptr == ((void*)chunk + sizeof(struct s_chunk)))
 					return (1);
 			chunk = chunk->next;
 		}

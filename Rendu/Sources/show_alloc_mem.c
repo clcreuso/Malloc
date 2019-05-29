@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   show_alloc_mem.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 11:12:19 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 12:02:42 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 15:52:44 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,21 +26,21 @@ void	write_hexa(u_int64_t x)
 	char dest[16];
 
 	*write_hexa_helper(dest, x) = '\0';
-	write(0, "0x", 2);
-	write(0, dest, ft_strlen(dest));
+	write(1, "0x", 2);
+	write(1, dest, ft_strlen(dest));
 }
 
 void	show_region_header(t_region *region)
 {
 	if (region->type == TINY)
-		write(0, "TINY", 4);
+		write(1, "TINY", 4);
 	if (region->type == SMALL)
-		write(0, "SMALL", 5);
+		write(1, "SMALL", 5);
 	if (region->type == LARGE)
-		write(0, "LARGE", 5);
-	write(0, " : ", 3);
+		write(1, "LARGE", 5);
+	write(1, " : ", 3);
 	write_hexa((u_int64_t)region->heap);
-	write(0, "\n", 1);
+	write(1, "\n", 1);
 }
 
 int		show_chunks(t_chunk *chunk)
@@ -56,11 +56,11 @@ int		show_chunks(t_chunk *chunk)
 		{
 			total += ptr->size - (sizeof(struct s_chunk) + 1);
 			write_hexa((u_int64_t)ptr + sizeof(struct s_chunk));
-			write(0, " - ", 3);
+			write(1, " - ", 3);
 			write_hexa((u_int64_t)ptr + (ptr->size - 1));
-			write(0, " : ", 3);
+			write(1, " : ", 3);
 			ft_putnbr(ptr->size - (sizeof(struct s_chunk) + 1));
-			write(0, " octets\n", 8);
+			write(1, " octets\n", 8);
 		}
 		ptr = ptr->next;
 	}
@@ -83,7 +83,7 @@ void	show_alloc_mem(void)
 		}
 		region = region->next;
 	}
-	write(0, "Total : ", 8);
+	write(1, "Total : ", 8);
 	ft_putnbr(total);
-	write(0, " octets\n", 8);
+	write(1, " octets\n", 8);
 }
