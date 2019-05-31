@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   show_alloc_mem.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 11:12:19 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 15:52:44 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 11:14:26 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,11 @@ void	show_alloc_mem(void)
 	int			total;
 
 	total = 0;
-	region = g_region;
+	if (!(region = g_region))
+	{
+		write(1, "no memory allocation\n", 21);
+		return ;
+	}
 	while (region)
 	{
 		if (region->type)
@@ -82,11 +86,6 @@ void	show_alloc_mem(void)
 			total += show_chunks(region->heap);
 		}
 		region = region->next;
-	}
-	if (!(g_region))
-	{
-		write(1, "no memory allocation\n", 21);
-		return ;
 	}
 	write(1, "Total : ", 8);
 	ft_putnbr(total);
