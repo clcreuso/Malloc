@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   libft.c                                          .::    .:/ .      .::   */
+/*   tools_02.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/27 15:52:57 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 16:01:30 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 12:19:43 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,18 +40,16 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-char	*ft_strncpy(char *d, const char *s, size_t n)
+char	*ft_memncpy(char *d, const char *s, size_t n)
 {
-	unsigned int a;
+	size_t a;
 
 	a = 0;
-	while (s[a] && a < n)
+	while (a < n)
 	{
 		d[a] = s[a];
 		a++;
 	}
-	while (a < n)
-		d[a++] = '\0';
 	return (d);
 }
 

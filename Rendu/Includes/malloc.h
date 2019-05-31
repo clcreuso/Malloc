@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   malloc.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:48 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 15:52:53 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 12:25:15 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,7 @@ void			*resize_chunk(t_chunk *chunk, size_t size);
 */
 
 int				ft_strlen(const char *s);
-char			*ft_strncpy(char *d, const char *s, size_t n);
+char			*ft_memncpy(char *d, const char *s, size_t n);
 void			ft_putnbr(int n);
 void			*ft_memset(void *s, int c, size_t n);
 

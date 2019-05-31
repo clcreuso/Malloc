@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:10:16 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 16:54:41 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 12:21:34 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	*realloc(void *ptr, size_t size)
 	t_region	*region;
 	t_chunk		*chunk;
 	void		*new_ptr;
-
+	
 	if (!ptr)
 		return (malloc(size));
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
@@ -27,7 +27,7 @@ void	*realloc(void *ptr, size_t size)
 	if (chunk->size >= (size + sizeof(struct s_chunk)))
 		return (ptr);
 	if ((new_ptr = malloc(size)))
-		ft_strncpy(new_ptr, ptr, (chunk->size - sizeof(struct s_chunk)));
+		ft_memncpy(new_ptr, ptr, (chunk->size - 1) - sizeof(struct s_chunk));
 	free(ptr);
 	return (new_ptr);
 }
