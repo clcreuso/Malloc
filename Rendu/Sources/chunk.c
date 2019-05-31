@@ -66,10 +66,7 @@ t_chunk		*find_free_chunk(t_region *region, size_t size)
 	while (chunk)
 	{
 		if (IS_FREE(chunk->size) && chunk->size >= size)
-		{
-			chunk->region = (void *)region;
 			return (chunk);
-		}
 		chunk = (t_chunk *)chunk->next;
 	}
 	return (NULL);

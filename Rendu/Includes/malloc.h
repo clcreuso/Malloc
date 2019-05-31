@@ -43,7 +43,6 @@
 typedef struct	s_chunk {
 	size_t			size;
 	void			*next;
-	void			*region;
 }				t_chunk;
 
 typedef struct	s_region {
