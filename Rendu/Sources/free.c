@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:49:31 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 16:54:14 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 12:22:18 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,10 +54,11 @@ void	free(void *ptr)
 	t_region	*region;
 	t_chunk		*chunk;
 
-	if (!(ptr) || !(check_chunk_exist(ptr)))
+	if (!(ptr))
 		return ;
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
-	region = (t_region *)chunk->region;
+	if (!(region = check_chunk_exist((void*)chunk)))
+		return ;
 	if (!(IS_FREE(chunk->size)))
 	{
 		chunk->size -= 1;

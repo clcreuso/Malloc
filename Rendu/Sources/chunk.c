@@ -3,17 +3,17 @@
 /*                                                              /             */
 /*   chunk.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 18:24:33 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 15:57:26 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/31 12:09:28 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../Includes/malloc.h"
 
-int			check_chunk_exist(void *ptr)
+t_region	*check_chunk_exist(void *ptr)
 {
 	t_region	*region;
 	t_chunk		*chunk;
@@ -25,13 +25,13 @@ int			check_chunk_exist(void *ptr)
 		while (chunk)
 		{
 			if (!(IS_FREE(chunk->size)))
-				if (ptr == ((void*)chunk + sizeof(struct s_chunk)))
-					return (1);
+				if (ptr == ((void*)chunk))
+					return (region);
 			chunk = chunk->next;
 		}
 		region = region->next;
 	}
-	return (0);
+	return (NULL);
 }
 
 void		*init_chunks_region(t_region *region, size_t size, int type)

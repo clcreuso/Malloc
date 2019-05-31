@@ -19,10 +19,11 @@ void	*realloc(void *ptr, size_t size)
 	t_chunk		*chunk;
 	void		*new_ptr;
 
-	if ((!ptr) || !(check_chunk_exist(ptr)))
+	if (!ptr)
 		return (malloc(size));
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
-	region = (t_region *)chunk->region;
+	if (!(region = check_chunk_exist((void*)chunk)))
+		return (malloc(size));
 	if (chunk->size >= (size + sizeof(struct s_chunk)))
 		return (ptr);
 	if ((new_ptr = malloc(size)))
