@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   chunk.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 18:24:33 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 12:09:28 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/malloc.h"
+#include "malloc.h"
 
 t_region	*check_chunk_exist(void *ptr)
 {

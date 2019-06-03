@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   tools_02.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/27 15:52:57 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 12:19:43 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/malloc.h"
+#include "malloc.h"
 
 int		ft_putchar(char c)
 {

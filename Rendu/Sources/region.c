@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   region.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 15:07:22 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 14:38:27 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/malloc.h"
+#include "malloc.h"
 
 t_region	*find_metadata_region(t_region *region, int type)
 {

@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   free.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:49:31 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 12:22:18 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/malloc.h"
+#include "malloc.h"
 
 void	free_region(t_region *region)
 {

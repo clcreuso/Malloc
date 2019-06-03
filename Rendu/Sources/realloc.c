@@ -3,22 +3,22 @@
 /*                                                              /             */
 /*   realloc.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:10:16 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 12:21:34 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../Includes/malloc.h"
+#include "malloc.h"
 
 void	*realloc(void *ptr, size_t size)
 {
 	t_region	*region;
 	t_chunk		*chunk;
 	void		*new_ptr;
-	
+
 	if (!ptr)
 		return (malloc(size));
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));

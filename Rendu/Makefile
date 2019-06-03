@@ -6,7 +6,7 @@
 #    By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/05/25 17:12:33 by clcreuso     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/29 16:11:10 by clcreuso    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/03 11:34:51 by clcreuso    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -42,7 +42,7 @@ $(SYMBOLIC_LINK): $(OBJ)
 ifndef $$HOSTTYPE
 	@export HOSTTYPE=$(shell uname -m)_$(shell uname -s);
 endif
-	@$(GCC) -shared -o $(SHARED_OBJECT) $(OBJ)
+	@$(GCC) -shared -I $(INCLUDE_FOLDER) -o $(SHARED_OBJECT) $(OBJ)
 	@ln -s $(SHARED_OBJECT) $(SYMBOLIC_LINK)
 
 ./%.o: ./%.c $(INCLUDE_PATHES)
