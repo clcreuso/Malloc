@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   realloc.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:10:16 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/24 20:48:44 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ void	*realloc(void *ptr, size_t size)
 		return (malloc(size));
 	chunk = (t_chunk *)(ptr - sizeof(struct s_chunk));
 	if (!(region = check_chunk_exist((void*)chunk)))
-		return (malloc(size));
+		return (NULL);
 	if (chunk->size >= (size + sizeof(struct s_chunk)))
 		return (ptr);
 	if ((new_ptr = malloc(size)))

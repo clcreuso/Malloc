@@ -3,19 +3,44 @@
 /*                                                              /             */
 /*   free.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:49:31 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/03 11:36:20 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/26 13:42:59 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	free_region(t_region *region)
+int		is_preallocation(int type)
 {
-	if (!(region->used) && (region->type))
+	t_region	*region;
+	int			count;
+
+	if (type == LARGE)
+		return 0;
+	count = 0;
+	region = g_region;
+	while (region->next)
+	{
+		if (region->type == type)
+			count++;
+		region = region->next;
+		if (region->type == type)
+			count++;
+	}
+	if (count > 1)
+		return 0;
+	return 1;
+}
+
+int		free_region(t_region *region)
+{
+	if (region->used || !(region->type))
+		return 0;
+		
+	if (!(is_preallocation(region->type)))
 	{
 		munmap(region->heap, region->size);
 		region->type = 0;
@@ -23,6 +48,9 @@ void	free_region(t_region *region)
 		region->used = 0;
 		region->heap = NULL;
 	}
+	else
+		ft_memset(region->heap, 0, region->size);
+	return 1;
 }
 
 void	free_metadata(void)
@@ -42,8 +70,8 @@ void	free_metadata(void)
 	while (region)
 	{
 		tmp = region->prev;
-		if (region->start)
-			munmap(region, 4096);
+		if (region->start == 1)
+			munmap(region, REGION_MMAP_SIZE);
 		region = tmp;
 	}
 	g_region = NULL;
@@ -64,6 +92,6 @@ void	free(void *ptr)
 		chunk->size -= 1;
 		region->used -= chunk->size;
 	}
-	free_region(region);
-	free_metadata();
+	if (free_region(region))
+		free_metadata();
 }

@@ -6,7 +6,7 @@
 /*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 17:47:48 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/31 12:25:15 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/26 13:46:09 by clement     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,20 +16,20 @@
 
 # define TINY 				1
 # define TINY_BYTE_MIN		1
-# define TINY_BYTE_MAX		1024
-# define TINY_PAGE_NUMBER	32
+# define TINY_BYTE_MAX		2048
+# define TINY_PAGE_NUMBER	64
 # define TINY_MMAP_SIZE		TINY_PAGE_NUMBER * getpagesize()
 
 # define SMALL 				2
-# define SMALL_BYTE_MIN		1025
-# define SMALL_BYTE_MAX     131072
-# define SMALL_PAGE_NUMBER 	4096
+# define SMALL_BYTE_MIN		2049
+# define SMALL_BYTE_MAX     65536
+# define SMALL_PAGE_NUMBER 	2048
 # define SMALL_MMAP_SIZE	SMALL_PAGE_NUMBER * getpagesize()
 
 # define LARGE 				4
-# define LARGE_BYTE_MIN 	131073
+# define LARGE_BYTE_MIN 	65537
 
-# define REGION_MMAP_SIZE	4096
+# define REGION_MMAP_SIZE	getpagesize()
 # define IS_FREE(x)			(((x) % 2) == 0)
 
 # include <unistd.h>
@@ -73,7 +73,8 @@ void			*malloc(size_t size);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void			free_region(t_region *region);
+int				is_preallocation(int type);
+int				free_region(t_region *region);
 void			free_metadata(void);
 void			free(void *ptr);
 
