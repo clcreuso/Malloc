@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   free.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: clement <clement@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 14:49:31 by clement      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/26 13:42:59 by clement     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/08 16:28:23 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ int		is_preallocation(int type)
 	int			count;
 
 	if (type == LARGE)
-		return 0;
+		return (0);
 	count = 0;
 	region = g_region;
 	while (region->next)
@@ -31,15 +31,14 @@ int		is_preallocation(int type)
 			count++;
 	}
 	if (count > 1)
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
 
 int		free_region(t_region *region)
 {
 	if (region->used || !(region->type))
-		return 0;
-		
+		return (0);
 	if (!(is_preallocation(region->type)))
 	{
 		munmap(region->heap, region->size);
@@ -50,7 +49,7 @@ int		free_region(t_region *region)
 	}
 	else
 		ft_memset(region->heap, 0, region->size);
-	return 1;
+	return (1);
 }
 
 void	free_metadata(void)
